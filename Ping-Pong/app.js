@@ -5,7 +5,6 @@ const app = express()
 const port = process.env.PORT ?? 3000
 
 let counter = 0
-fs.writeFile('ping-pong-counter.txt', String(0))
 
 app.get('/pingpong', (req, res) => {
     counter += 1

@@ -9,6 +9,8 @@ let hash = crypto.randomUUID()
 
 setInterval(() => console.log(`${new Date().toISOString()}: ${hash}`), 5000)
 
+fs.writeFileSync('/usr/src/app/files/ping-pong-counter.txt', String(0))
+
 app.get('/', (req, res) => {
     let pingPongCount = fs.readFileSync('/usr/src/app/files/ping-pong-counter.txt').toString()
     res.send(`${new Date().toISOString()}: ${hash} <br> Ping / Pongs: ${pingPongCount}`)
