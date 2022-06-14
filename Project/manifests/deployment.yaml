@@ -12,6 +12,13 @@ spec:
       labels:
         app: project
     spec:
+      volumes:
+      - name: project-volume
+        persistentVolumeClaim:
+          claimName: project-claim
       containers:
         - name: project
-          image: thefenix/dok-project:0.5
+          image: thefenix/dok-project:0.6
+          volumeMounts:
+          - name: project-volume
+            mountPath: /usr/src/app/files
