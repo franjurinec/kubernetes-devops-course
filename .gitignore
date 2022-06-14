@@ -1,0 +1,3 @@
+*.exe
+.devcontainer/
+node_modules/
