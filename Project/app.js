@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const fs = require('fs')
 const ImageDownloader = require('image-downloader')
 
-// Static local storage location
-const basepath = '/usr/src/app/files/'
+// Public folder location
+const basepath = process.env.PUBLIC_PATH ?? '/usr/src/app/files/'
 
 // Express Setup
 const app = express()
@@ -27,10 +28,8 @@ async function updateImage() {
 
     await ImageDownloader.image({
         url: 'https://picsum.photos/1024/512',
-        dest: basepath + 'daily.jpg'
-    }).catch((err) => {
-        if (err.code !== 'EAI_AGAIN') console.error(err)
-    })
+        dest: basepath + 'image.jpg'
+    }).catch(console.error)
     
     imageMeta.date = new Date().toDateString()
     fs.writeFileSync(basepath + 'imageMeta.json', JSON.stringify(imageMeta))
