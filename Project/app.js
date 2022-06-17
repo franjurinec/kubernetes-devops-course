@@ -3,20 +3,20 @@ const fs = require('fs')
 const ImageDownloader = require('image-downloader')
 
 // Static local storage location
-const basepath = '/usr/src/app/files'
+const basepath = '/usr/src/app/files/'
 
 // Express Setup
 const app = express()
 const port = process.env.PORT ?? 3000
-app.use(express.static(basepath))
 app.set('view engine', 'pug')
+app.use(express.static('files'))
 
 // Load daily image metadata
 let imageMeta = {}
 try {
     imageMeta = JSON.parse(fs.readFileSync(basepath + 'imageMeta.json'))
 } catch(err) {
-    console.log(err)
+    // console.log(err)
     console.log('Found no existing metadata.')
 }
 
@@ -28,7 +28,7 @@ async function updateImage() {
     await ImageDownloader.image({
         url: 'https://picsum.photos/1024/512',
         dest: basepath + 'daily.jpg'
-    })
+    }).catch(console.log)
     
     imageMeta.date = new Date().toDateString()
     fs.writeFileSync(basepath + 'imageMeta.json', JSON.stringify(imageMeta))
