@@ -9,7 +9,7 @@ const basepath = '/usr/src/app/files/'
 const app = express()
 const port = process.env.PORT ?? 3000
 app.set('view engine', 'pug')
-app.use(express.static('files'))
+app.use(express.static(basepath))
 
 // Load daily image metadata
 let imageMeta = {}
