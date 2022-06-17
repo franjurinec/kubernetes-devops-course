@@ -28,7 +28,10 @@ async function updateImage() {
     await ImageDownloader.image({
         url: 'https://picsum.photos/1024/512',
         dest: basepath + 'daily.jpg'
-    }).catch()
+    }).catch(err => {
+        if (err.code === 'EAI_AGAIN') return
+        console.log(err)
+    })
     
     imageMeta.date = new Date().toDateString()
     fs.writeFileSync(basepath + 'imageMeta.json', JSON.stringify(imageMeta))
