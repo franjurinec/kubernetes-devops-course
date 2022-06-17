@@ -28,7 +28,7 @@ async function updateImage() {
     await ImageDownloader.image({
         url: 'https://picsum.photos/1024/512',
         dest: basepath + 'daily.jpg'
-    }).catch(console.log)
+    }).catch()
     
     imageMeta.date = new Date().toDateString()
     fs.writeFileSync(basepath + 'imageMeta.json', JSON.stringify(imageMeta))
@@ -40,7 +40,10 @@ app.get('/', async (req, res) => {
     res.render('index')
 })
 
-app.get('/kill', () => process.exit(5))
+app.get('/kill', (req, res) => {
+    res.send('Shutting down...')
+    process.exit(5)
+})
 
 // Start Listening
 app.listen(port, () => console.log(`Server started on port ${port}`))
