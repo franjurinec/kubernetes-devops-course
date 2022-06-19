@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const fs = require('fs')
+const path = require('path')
 const ImageDownloader = require('image-downloader')
 
 // Public folder location
@@ -15,7 +16,7 @@ app.use(express.static(basepath))
 // Load daily image metadata
 let imageMeta = {}
 try {
-    imageMeta = JSON.parse(fs.readFileSync(basepath + 'imageMeta.json'))
+    imageMeta = JSON.parse(fs.readFileSync(path.join(basepath, 'imageMeta.json')))
 } catch(err) {
     // console.log(err)
     console.log('Found no existing metadata.')
@@ -28,11 +29,11 @@ async function updateImage() {
 
     await ImageDownloader.image({
         url: 'https://picsum.photos/1024/512',
-        dest: basepath + 'image.jpg'
+        dest: path.join(basepath, 'image.jpg')
     }).catch(console.error)
     
     imageMeta.date = new Date().toDateString()
-    fs.writeFileSync(basepath + 'imageMeta.json', JSON.stringify(imageMeta))
+    fs.writeFileSync(path.join(basepath, 'imageMeta.json'), JSON.stringify(imageMeta))
 }
 
 // Routes
