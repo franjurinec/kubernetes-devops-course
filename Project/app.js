@@ -7,11 +7,21 @@ const ImageDownloader = require('image-downloader')
 // Public folder location
 const basepath = process.env.PUBLIC_PATH ?? '/usr/src/app/files/'
 
-// Express Setup
+
+//  ====================
+// ==  EXPRESS CONFIG  ==
+//  ====================
+
 const app = express()
 const port = process.env.PORT ?? 3000
 app.set('view engine', 'pug')
 app.use(express.static(basepath))
+
+
+
+//  =======================
+// ==  DAILY IMAGE LOGIC  ==
+//  =======================
 
 // Load daily image metadata
 let imageMeta = {}
@@ -22,9 +32,8 @@ try {
     console.log('Found no existing metadata.')
 }
 
-// Download new image and update stored metadata
+// Download new image and update stored metadata if necessary
 async function updateImage() {
-    // Guard clause - stop if image is up-to-date
     if (new Date().toDateString() === imageMeta.date) return
 
     await ImageDownloader.image({
@@ -36,16 +45,23 @@ async function updateImage() {
     fs.writeFileSync(path.join(basepath, 'imageMeta.json'), JSON.stringify(imageMeta))
 }
 
-// Routes
-app.get('/', async (req, res) => {
+
+//  ============
+// ==  ROUTES  ==
+//  ============
+
+// Home Page
+app.get('/', async (_, res) => {
     await updateImage()
     res.render('index')
 })
 
-app.get('/kill', (req, res) => {
+// Kill Server (for persistence testing)
+app.get('/kill', (_, res) => {
     res.send('Shutting down...')
     process.exit(5)
 })
+
 
 // Start Listening
 app.listen(port, () => console.log(`Server started on port ${port}`))
