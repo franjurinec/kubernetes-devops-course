@@ -12,13 +12,6 @@ spec:
       labels:
         app: log-output
     spec:
-      volumes:
-      - name: shared-volume
-        persistentVolumeClaim:
-          claimName: shared-claim
       containers:
         - name: log-output
-          image: thefenix/dok-log-output:0.4
-          volumeMounts:
-          - name: shared-volume
-            mountPath: /usr/src/app/files
+          image: thefenix/dok-log-output:0.5

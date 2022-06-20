@@ -1,4 +1,3 @@
-const fs = require('fs')
 const crypto = require('crypto')
 const express = require('express')
 
@@ -9,11 +8,9 @@ let hash = crypto.randomUUID()
 
 setInterval(() => console.log(`${new Date().toISOString()}: ${hash}`), 5000)
 
-fs.writeFileSync('/usr/src/app/files/ping-pong-counter.txt', String(0))
-
-app.get('/', (req, res) => {
-    let pingPongCount = fs.readFileSync('/usr/src/app/files/ping-pong-counter.txt').toString()
-    res.send(`${new Date().toISOString()}: ${hash} <br> Ping / Pongs: ${pingPongCount}`)
+app.get('/', async (_, res) => {
+    let pingPongData = await fetch('http://ping-pong-svc/count').then(res => res.json())
+    res.send(`${new Date().toISOString()}: ${hash} <br> Ping / Pongs: ${pingPongData.count}`)
 })
 
 app.listen(port)
