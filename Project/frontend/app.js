@@ -4,8 +4,11 @@ const fs = require('fs')
 const path = require('path')
 const ImageDownloader = require('image-downloader')
 
-// Public folder location
+// Important Paths
 const basepath = process.env.PUBLIC_PATH ?? '/usr/src/app/files/'
+const todosServerURL = new URL('/todos', process.env.BACKEND_URL ?? 'http://project-backend-svc/')
+const todosClientURL = process.env.BACKEND_URL ? todosServerURL : '/todos'
+
 
 
 //  ====================
@@ -51,9 +54,10 @@ async function updateImage() {
 //  ============
 
 // Home Page
-app.get('/', async (_, res) => {
+app.get('/', async (req, res) => {
     await updateImage()
-    res.render('index')
+    let todos = await fetch(todosServerURL).then(res => res.json())
+    res.render('index', {todos, todosClientURL})
 })
 
 // Kill Server (for persistence testing)
