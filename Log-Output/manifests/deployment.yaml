@@ -14,5 +14,8 @@ spec:
         app: log-output
     spec:
       containers:
-        - name: log-output
-          image: thefenix/dok-log-output:0.5
+      - name: log-output
+        image: thefenix/dok-log-output:0.6
+        envFrom:
+        - configMapRef:
+            name: log-output-cfgmap

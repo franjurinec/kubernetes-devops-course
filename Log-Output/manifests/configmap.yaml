@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-output-cfgmap
+  namespace: applications
+data:
+  MESSAGE: Hello
