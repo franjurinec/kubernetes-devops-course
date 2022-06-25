@@ -1,4 +1,5 @@
 require('dotenv').config()
+const fs = require('fs')
 const crypto = require('crypto')
 const express = require('express')
 
@@ -8,7 +9,13 @@ const port = process.env.PORT ?? 3000
 const helloMessage = process.env.MESSAGE ?? 'No message specified.'
 const hash = crypto.randomUUID()
 
-setInterval(() => console.log(`${new Date().toISOString()}: ${hash}`), 5000)
+const filePath = process.env.FILE_PATH ?? '/usr/src/app/files/timestamp.txt'
+
+// Read timestamp on every file change - updated by Log-Output-Writer every 5s
+fs.watchFile(filePath, () => {
+    let timestamp = fs.readFileSync(filePath).toString()
+    console.log(`${timestamp}: ${hash}`)
+})
 
 app.get('/', async (_, res) => {
     let pingPongData = await fetch('http://ping-pong-svc/count').then(res => res.json()).catch(() => 0)

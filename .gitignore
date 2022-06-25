@@ -1,4 +1,5 @@
 *.exe
+*.txt
 .devcontainer/
 node_modules/
 .env

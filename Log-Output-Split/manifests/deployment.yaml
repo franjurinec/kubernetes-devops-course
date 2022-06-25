@@ -1,29 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: log-output-dep
   namespace: applications
-  name: log-output-split-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: log-output-split
+      app: log-output
   template:
     metadata:
       labels:
-        app: log-output-split
+        app: log-output
     spec:
       volumes:
-        - name: log-output-split-vol
-          emptyDir: {}
+      - name: log-output-split-vol
+        emptyDir: {}
       containers:
-        - name: log-output-writer
-          image: thefenix/dok-log-output-writer:0.1
-          volumeMounts:
-          - name: log-output-split-vol
-            mountPath: /usr/src/app/files
-        - name: log-output-reader
-          image: thefenix/dok-log-output-reader:0.1
-          volumeMounts:
-          - name: log-output-split-vol
-            mountPath: /usr/src/app/files
+      - name: log-output
+        image: thefenix/dok-log-output:0.6
+        envFrom:
+        - configMapRef:
+            name: log-output-cfgmap
+        volumeMounts:
+        - name: log-output-split-vol
+          mountPath: /usr/src/app/files
+      - name: log-output-writer
+        image: thefenix/dok-log-output-writer:0.1
+        volumeMounts:
+        - name: log-output-split-vol
+          mountPath: /usr/src/app/files
