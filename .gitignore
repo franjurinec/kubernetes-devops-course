@@ -1,5 +1,6 @@
 *.exe
 *.txt
+secret.yaml
 .devcontainer/
 node_modules/
 .env

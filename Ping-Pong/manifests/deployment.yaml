@@ -15,4 +15,21 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: thefenix/dok-ping-pong:0.3
+          image: thefenix/dok-ping-pong:0.5
+          envFrom:
+            - secretRef:
+                name: postgres-pass
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-pass
+                  key: POSTGRES_PASSWORD
+            - name: PGUSER
+              value: "postgres"
+            - name: PGDATABASE
+              value: "postgres"
+            - name: PGHOST
+              value: "postgres-svc"
+            - name: PGPORT
+              value: "5432"
