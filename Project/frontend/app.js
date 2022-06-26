@@ -10,7 +10,6 @@ const todosServerURL = new URL('/todos', process.env.BACKEND_URL ?? 'http://proj
 const todosClientURL = process.env.BACKEND_URL ? todosServerURL : '/todos'
 
 
-
 //  ====================
 // ==  EXPRESS CONFIG  ==
 //  ====================
@@ -19,7 +18,6 @@ const app = express()
 const port = process.env.PORT ?? 3000
 app.set('view engine', 'pug')
 app.use(express.static(basepath))
-
 
 
 //  =======================

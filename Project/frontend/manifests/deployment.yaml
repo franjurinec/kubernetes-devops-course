@@ -19,7 +19,7 @@ spec:
           claimName: project-claim
       containers:
         - name: project
-          image: thefenix/dok-project:1.0
+          image: thefenix/dok-project:1.2
           volumeMounts:
           - name: project-volume
             mountPath: /usr/src/app/files

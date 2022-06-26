@@ -15,4 +15,18 @@ spec:
     spec:
       containers:
         - name: project
-          image: thefenix/dok-project-backend:1.0
+          image: thefenix/dok-project-backend:1.2.1
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: project-db-pass
+                  key: POSTGRES_PASSWORD
+            - name: PGUSER
+              value: "postgres"
+            - name: PGDATABASE
+              value: "postgres"
+            - name: PGHOST
+              value: "project-db-svc"
+            - name: PGPORT
+              value: "5432"

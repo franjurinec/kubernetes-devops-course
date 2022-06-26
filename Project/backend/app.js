@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const db = require('./db')
 
 const homepageClientURL = process.env.FRONTEND_URL ?? '/'
 
@@ -15,25 +16,43 @@ app.use(express.urlencoded({
 }))
 
 
-//  =================
-// ==  TODOS LOGIC  ==
-//  =================
+//  =========================
+// ==  DB INIT & FUNCTIONS  ==
+//  =========================
 
-let todos = []
+db.query('CREATE TABLE IF NOT EXISTS todos ( \
+    id SERIAL PRIMARY KEY, \
+    value VARCHAR(140) NOT NULL \
+)')
 
+async function insertTodo(text) {
+    await db.query('INSERT INTO todos (value) VALUES ($1)', [text])
+}
+
+async function deleteTodo(id) {
+    await db.query('DELETE FROM todos WHERE id = $1', [id])
+}
+
+async function getTodos() {
+    return await db.query('SELECT id, value FROM todos').then(res => res.rows)
+}
 
 //  ============
 // ==  ROUTES  ==
 //  ============
 
-app.post('/todos', (req, res) => {
-    let newTodoData = req.body
-    todos.push(newTodoData.todoText)
+app.post('/todos', async (req, res) => {
+    await insertTodo(req.body.todoText)
     res.redirect(homepageClientURL)
 })
 
-app.get('/todos', (_, res) => {
-    res.json(todos)
+app.delete('/todos', async (req, res) => {
+    await deleteTodo(req.body.todoId)
+    res.redirect(homepageClientURL)
+})
+
+app.get('/todos', async (_, res) => {
+    res.json(await getTodos())
 })
 
 
