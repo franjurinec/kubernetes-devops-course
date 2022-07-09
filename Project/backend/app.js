@@ -43,11 +43,20 @@ async function getTodos() {
 //  ============
 
 app.post('/todos', async (req, res) => {
+    if(req.body.todoText.length > 140) {
+        const errorMsg = 'New todo request exceeds 140 characters.'
+        console.error(errorMsg)
+        res.json({error: errorMsg})
+        return
+    }
+
+    console.log(`Creating new todo: ${req.body.todoText}`)
     await insertTodo(req.body.todoText)
     res.redirect(homepageClientURL)
 })
 
 app.delete('/todos', async (req, res) => {
+    console.log(`Deleting todo #${req.body.todoId}`)
     await deleteTodo(req.body.todoId)
     res.redirect(homepageClientURL)
 })
