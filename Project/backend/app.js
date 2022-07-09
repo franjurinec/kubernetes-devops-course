@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
-const db = require('./db')
+
+const db = process.env.NO_DB ? {query: () => console.log('DB Query Triggered')} : require('./db')
 
 const homepageClientURL = process.env.FRONTEND_URL ?? '/'
 
