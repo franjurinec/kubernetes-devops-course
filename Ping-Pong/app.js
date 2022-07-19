@@ -30,6 +30,11 @@ async function incrementCount() {
 
 // ROUTES
 
+//For GKE Health Check
+app.get('/', (_, res) => {
+    res.sendStatus(200)
+})
+
 app.get('/pingpong', async (_, res) => {
     await incrementCount()
     res.send(`pong ${await getCount()}`)

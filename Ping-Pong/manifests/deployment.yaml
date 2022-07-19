@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: thefenix/dok-ping-pong:0.5
+          image: thefenix/dok-ping-pong:0.5.1
           envFrom:
             - secretRef:
                 name: postgres-pass

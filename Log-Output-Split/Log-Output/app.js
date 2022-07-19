@@ -10,7 +10,7 @@ const helloMessage = process.env.MESSAGE ?? 'No message specified.'
 const hash = crypto.randomUUID()
 
 const filePath = process.env.FILE_PATH ?? '/usr/src/app/files/timestamp.txt'
-fs.writeFile(filePath, new Date().toISOString())
+fs.writeFileSync(filePath, new Date().toISOString())
 
 // Read timestamp on every file change - updated by Log-Output-Writer every 5s
 fs.watchFile(filePath, () => {
