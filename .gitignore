@@ -5,3 +5,4 @@ secret.yaml
 node_modules/
 .env
 files/
+private-key.json

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: project
-          image: thefenix/dok-project-backend:1.3
+          image: gcr.io/PROJECT_ID/IMAGE-backend
           env:
             - name: PGPASSWORD
               valueFrom:

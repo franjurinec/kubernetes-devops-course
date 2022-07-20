@@ -19,7 +19,8 @@ spec:
           claimName: project-claim
       containers:
         - name: project
-          image: thefenix/dok-project:1.2
+          image: gcr.io/PROJECT_ID/IMAGE-frontend
           volumeMounts:
           - name: project-volume
             mountPath: /usr/src/app/files
+            subPatg: frontend
