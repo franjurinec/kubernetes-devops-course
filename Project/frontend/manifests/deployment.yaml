@@ -23,4 +23,4 @@ spec:
           volumeMounts:
           - name: project-volume
             mountPath: /usr/src/app/files
-            subPatg: frontend
+            subPath: frontend
