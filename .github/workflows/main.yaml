@@ -39,11 +39,11 @@ jobs:
         uses: imranismail/setup-kustomize@v1
       - name: Prepare Secret
         run: |-
-          wget -O sops.deb https://github.com/mozilla/sops/releases/download/v3.7.3/sops_3.7.3_amd64.deb
+          wget -nv -O sops.deb https://github.com/mozilla/sops/releases/download/v3.7.3/sops_3.7.3_amd64.deb
           sudo apt install ./sops.deb
           echo ${{ secrets.AGE_KEY }} > age.txt
           export SOPS_AGE_KEY_FILE=$(pwd)/key.txt
-          sops --decrypt ./Project/backend/secret.enc.yaml > ./Project/backend/secret.yaml
+          sops --decrypt ./Project/backend/manifests/secret.enc.yaml > ./Project/backend/manifests/secret.yaml
       - name: Deploy
         run: |-
           kustomize edit set image gcr.io/PROJECT_ID/IMAGE-frontend=gcr.io/$PROJECT_ID/$IMAGE-fronted:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
