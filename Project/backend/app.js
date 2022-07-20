@@ -42,6 +42,10 @@ async function getTodos() {
 // ==  ROUTES  ==
 //  ============
 
+app.get('/', (_, res) => {
+    res.sendStatus(200)
+})
+
 app.post('/todos', async (req, res) => {
     if(req.body.todoText.length > 140) {
         const errorMsg = 'New todo request exceeds 140 characters.'
