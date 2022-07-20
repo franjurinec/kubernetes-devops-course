@@ -39,6 +39,7 @@ jobs:
         uses: imranismail/setup-kustomize@v1
       - name: Prepare Secret
         run: |-
+          sudo apt install -y sops
           echo ${{ secrets.AGE_KEY }} > age.txt
           export SOPS_AGE_KEY_FILE=$(pwd)/key.txt
           sops --decrypt ./Project/backend/secret.enc.yaml > ./Project/backend/secret.yaml
