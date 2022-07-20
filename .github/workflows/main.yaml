@@ -39,7 +39,8 @@ jobs:
         uses: imranismail/setup-kustomize@v1
       - name: Prepare Secret
         run: |-
-          sudo apt install -y sops
+          sudo curl -o sops.deb https://github.com/mozilla/sops/releases/download/v3.7.3/sops_3.7.3_amd64.deb
+          sudo apt install ./sops.deb
           echo ${{ secrets.AGE_KEY }} > age.txt
           export SOPS_AGE_KEY_FILE=$(pwd)/key.txt
           sops --decrypt ./Project/backend/secret.enc.yaml > ./Project/backend/secret.yaml
