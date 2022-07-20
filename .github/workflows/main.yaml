@@ -51,6 +51,8 @@ jobs:
           kustomize edit set image gcr.io/PROJECT_ID/IMAGE-backend=gcr.io/$PROJECT_ID/$IMAGE-backend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image gcr.io/PROJECT_ID/IMAGE-cronjob=gcr.io/$PROJECT_ID/$IMAGE-cronjob:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment $IMAGE
+          kubectl rollout status deployment $IMAGE-frontend
+          kubectl rollout status deployment $IMAGE-backend
+          kubectl rollout status deployment $IMAGE-cronjob
           kubectl get services -o wide
           cd ..
