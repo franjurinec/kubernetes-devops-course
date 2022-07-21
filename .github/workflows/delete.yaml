@@ -15,6 +15,7 @@ jobs:
   delete-environment:
     name: Delete Environment
     runs-on: ubuntu-latest
+    if: github.event.ref_type == 'branch'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,8 +37,8 @@ jobs:
       - name: Delete Resources
         run: |-
           cd Project
-          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
-          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
-          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+          kubectl create namespace ${{ github.event.ref }} || true
+          kubectl config set-context --current --namespace=${{ github.event.ref }}
+          kustomize edit set namespace ${{ github.event.ref }}
           kustomize build . | kubectl delete -f -
           cd ..
