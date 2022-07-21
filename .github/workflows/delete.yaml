@@ -1,0 +1,43 @@
+name: Delete Application
+
+on:
+  delete:
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  CLOUDSDK_CORE_PROJECT: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  IMAGE: project
+  SOPS_AGE_KEY: ${{ secrets.AGE_KEY }}
+
+jobs:
+  delete-environment:
+    name: Delete Environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@main
+        with:
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          export_default_credentials: true
+      - run: gcloud --quiet auth configure-docker
+      - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v1
+      - name: Prepare Secret
+        run: |-
+          wget -nv -O sops.deb https://github.com/mozilla/sops/releases/download/v3.7.3/sops_3.7.3_amd64.deb
+          sudo apt install ./sops.deb
+          sops --decrypt ./Project/backend/manifests/secret.enc.yaml > ./Project/backend/manifests/secret.yaml
+      - name: Delete Resources
+        run: |-
+          cd Project
+          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+          kustomize build . | kubectl delete -f -
+          cd ..
