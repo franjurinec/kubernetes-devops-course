@@ -27,3 +27,7 @@ Exercises for the course from University of Helsinki (TKT21027)
 - More costly when considering configuration/management costs especially at smaller scale
 - More manual configurations for backups
 - Requires own efforts to conform to legal regulations
+
+## Exercise 3.07 - DB Choice
+Final choice: **DIY Postgres Database**  
+Reason: Keep existing configuration, avoid changing secrets.
