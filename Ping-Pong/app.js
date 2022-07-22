@@ -6,15 +6,18 @@ const port = process.env.PORT ?? 3000
 
 
 // CREATE TABLE AND INSERT DEFAULT VALUE IF NOT ALREADY EXISTING
+let databaseReady = false
+db.awaitConnection().then(async () => {
+    await db.query('CREATE TABLE IF NOT EXISTS ping_pong ( \
+        name varchar(45) NOT NULL, \
+        value integer NOT NULL, \
+        PRIMARY KEY (name) \
+    )')
 
-db.query('CREATE TABLE IF NOT EXISTS ping_pong ( \
-    name varchar(45) NOT NULL, \
-    value integer NOT NULL, \
-    PRIMARY KEY (name) \
-)')
+    await db.query('INSERT INTO ping_pong (name, value) VALUES (\'count\', \'0\') ON CONFLICT (name) DO NOTHING')
 
-db.query('INSERT INTO ping_pong (name, value) VALUES (\'count\', \'0\') ON CONFLICT (name) DO NOTHING')
-
+    databaseReady = true
+})
 
 // DEFINE HELPER DATABASE FUNCTIONS
 
@@ -30,8 +33,17 @@ async function incrementCount() {
 
 // ROUTES
 
-//For GKE Health Check
+// For GKE Health Check
 app.get('/', (_, res) => {
+    res.sendStatus(200)
+})
+
+// For Kubernetes readiness check
+app.get('/databaseready', (_, res) => {
+    if (!databaseReady) {
+        res.sendStatus(503)
+        return
+    }
     res.sendStatus(200)
 })
 

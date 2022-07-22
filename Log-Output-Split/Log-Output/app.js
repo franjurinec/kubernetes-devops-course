@@ -25,4 +25,10 @@ app.get('/', async (_, res) => {
                 <br> Ping / Pongs: ${pingPongData.count ?? 0}`)
 })
 
+app.get('/ready', async (_, res) => {
+    await fetch('http://ping-pong-svc/databaseready')
+        .then(() => res.sendStatus(200))
+        .catch(() => res.sendStatus(503))
+})
+
 app.listen(port)

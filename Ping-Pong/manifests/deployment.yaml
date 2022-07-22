@@ -20,6 +20,12 @@ spec:
             limits:
               cpu: "100m"
               memory: "512Mi"
+          readinessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 10 
+            httpGet:
+              path: /databaseready
+              port: 80
           envFrom:
             - secretRef:
                 name: postgres-pass
