@@ -1,7 +1,7 @@
 # DevOps with Kubernetes
 Exercises for the course from University of Helsinki (TKT21027)
 
-## DBaaS vs DIY
+## Exercise 3.06 - DBaaS vs DIY
 ### Database as a Service
 #### Pros
 - Easy setup, no heavy IT/database team necessary
