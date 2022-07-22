@@ -16,6 +16,10 @@ spec:
       containers:
         - name: project
           image: gcr.io/PROJECT_ID/IMAGE-backend
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "512Mi"
           env:
             - name: PGPASSWORD
               valueFrom:

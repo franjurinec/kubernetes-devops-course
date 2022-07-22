@@ -19,6 +19,10 @@ spec:
       containers:
       - name: log-output
         image: thefenix/dok-log-output:0.7.1
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "512Mi"
         envFrom:
         - configMapRef:
             name: log-output-cfgmap
@@ -27,6 +31,10 @@ spec:
           mountPath: /usr/src/app/files
       - name: log-output-writer
         image: thefenix/dok-log-output-writer:0.1
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "512Mi"
         volumeMounts:
         - name: log-output-split-vol
           mountPath: /usr/src/app/files

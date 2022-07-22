@@ -12,4 +12,8 @@ spec:
           containers:
           - name: daily-task
             image: gcr.io/PROJECT_ID/IMAGE-cronjob
+            resources:
+              limits:
+                cpu: "100m"
+                memory: "256Mi"
           restartPolicy: OnFailure

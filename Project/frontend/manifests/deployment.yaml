@@ -20,6 +20,10 @@ spec:
       containers:
         - name: project
           image: gcr.io/PROJECT_ID/IMAGE-frontend
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "512Mi"
           volumeMounts:
           - name: project-volume
             mountPath: /usr/src/app/files

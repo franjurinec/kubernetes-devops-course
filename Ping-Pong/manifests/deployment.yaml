@@ -16,6 +16,10 @@ spec:
       containers:
         - name: ping-pong
           image: thefenix/dok-ping-pong:0.5.1
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "512Mi"
           envFrom:
             - secretRef:
                 name: postgres-pass
