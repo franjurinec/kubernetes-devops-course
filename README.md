@@ -31,3 +31,8 @@ Exercises for the course from University of Helsinki (TKT21027)
 ## Exercise 3.07 - DB Choice
 Final choice: **DIY Postgres Database**  
 Reason: Keep existing configuration, avoid changing secrets.
+
+## Exercise 3.10 - New TODO Log
+
+![image](https://user-images.githubusercontent.com/15126801/180514666-72bf03d8-5ee1-43e1-a994-3ddee11bad11.png)
+
