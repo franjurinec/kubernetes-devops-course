@@ -19,11 +19,17 @@ spec:
           claimName: project-claim
       containers:
         - name: project
-          image: gcr.io/PROJECT_ID/IMAGE-frontend
+          image: thefenix/dok-project:1.4
           resources:
             limits:
               cpu: "100m"
               memory: "512Mi"
+          readinessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 10 
+            httpGet:
+              path: /ready
+              port: 3000
           volumeMounts:
           - name: project-volume
             mountPath: /usr/src/app/files

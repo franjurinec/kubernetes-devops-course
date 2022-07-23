@@ -64,6 +64,12 @@ app.get('/kill', (_, res) => {
     process.exit(5)
 })
 
+// Check backend access
+app.get('/ready', async (_, res) => {
+    await fetch('http://project-backend-svc/')
+        .then(probe => res.sendStatus(probe.status))
+        .catch(() => res.sendStatus(503))
+})
 
 // Start Listening
 app.listen(port, () => console.log(`Server started on port ${port}`))

@@ -20,11 +20,16 @@ app.use(express.urlencoded({
 //  =========================
 // ==  DB INIT & FUNCTIONS  ==
 //  =========================
+let databaseReady = false
+db.awaitConnection().then(async () => {
+    await db.query('CREATE TABLE IF NOT EXISTS todos ( \
+        id SERIAL PRIMARY KEY, \
+        value VARCHAR(140) NOT NULL \
+    )')
+    
+    databaseReady = true
+})
 
-db.query('CREATE TABLE IF NOT EXISTS todos ( \
-    id SERIAL PRIMARY KEY, \
-    value VARCHAR(140) NOT NULL \
-)')
 
 async function insertTodo(text) {
     await db.query('INSERT INTO todos (value) VALUES ($1)', [text])
@@ -43,6 +48,14 @@ async function getTodos() {
 //  ============
 
 app.get('/', (_, res) => {
+    res.sendStatus(200)
+})
+
+app.get('/databaseready', (_, res) => {
+    if (!databaseReady) {
+        res.sendStatus(503)
+        return
+    }
     res.sendStatus(200)
 })
 

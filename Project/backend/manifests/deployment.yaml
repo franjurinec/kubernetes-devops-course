@@ -15,11 +15,17 @@ spec:
     spec:
       containers:
         - name: project
-          image: gcr.io/PROJECT_ID/IMAGE-backend
+          image: thefenix/dok-project-backend:1.4
           resources:
             limits:
               cpu: "100m"
               memory: "512Mi"
+          readinessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 10 
+            httpGet:
+              path: /databaseready
+              port: 3000
           env:
             - name: PGPASSWORD
               valueFrom:

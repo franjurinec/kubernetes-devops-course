@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
           - name: daily-task
-            image: gcr.io/PROJECT_ID/IMAGE-cronjob
+            image: thefenix/dok-project-dailytask:0.1.3
             resources:
               limits:
                 cpu: "100m"
