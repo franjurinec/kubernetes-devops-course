@@ -27,7 +27,7 @@ app.get('/', async (_, res) => {
 
 app.get('/ready', async (_, res) => {
     await fetch('http://ping-pong-svc/databaseready')
-        .then(() => res.sendStatus(200))
+        .then((probe) => res.sendStatus(probe.statusCode))
         .catch(() => res.sendStatus(503))
 })
 

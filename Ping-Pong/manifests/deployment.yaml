@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: thefenix/dok-ping-pong:0.5.1
+          image: thefenix/dok-ping-pong:0.6
           resources:
             limits:
               cpu: "100m"

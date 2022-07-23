@@ -18,7 +18,7 @@ spec:
         emptyDir: {}
       containers:
       - name: log-output
-        image: thefenix/dok-log-output:0.7.1
+        image: thefenix/dok-log-output:0.8
         resources:
           limits:
             cpu: "100m"
