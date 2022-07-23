@@ -11,7 +11,7 @@ module.exports = {
         resolve('Connected!')
         clearInterval(this)
       }).catch((_) => {
-        // console.error('Failed to reach DB, retrying in 10s...')
+        console.error('Failed to reach DB, retrying in 10s...')
       })
     }, 10000)
   })

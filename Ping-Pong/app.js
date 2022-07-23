@@ -34,9 +34,9 @@ async function incrementCount() {
 // ROUTES
 
 // For GKE Health Check
-app.get('/', (_, res) => {
-    res.sendStatus(200)
-})
+// app.get('/', (_, res) => {
+//     res.sendStatus(200)
+// })
 
 // For Kubernetes readiness check
 app.get('/databaseready', (_, res) => {

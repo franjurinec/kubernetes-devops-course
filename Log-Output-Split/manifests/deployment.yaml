@@ -18,7 +18,7 @@ spec:
         emptyDir: {}
       containers:
       - name: log-output
-        image: thefenix/dok-log-output:0.8
+        image: thefenix/dok-log-output:0.8.2
         resources:
           limits:
             cpu: "100m"
@@ -28,7 +28,7 @@ spec:
           periodSeconds: 10 
           httpGet:
             path: /ready
-            port: 80
+            port: 3000
         envFrom:
         - configMapRef:
             name: log-output-cfgmap

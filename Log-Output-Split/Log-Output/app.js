@@ -27,8 +27,11 @@ app.get('/', async (_, res) => {
 
 app.get('/ready', async (_, res) => {
     await fetch('http://ping-pong-svc/databaseready')
-        .then((probe) => res.sendStatus(probe.statusCode))
-        .catch(() => res.sendStatus(503))
+        .then((probe) => res.sendStatus(probe.status))
+        .catch((err) => {
+            console.error(err)
+            res.sendStatus(503)
+        })
 })
 
 app.listen(port)
