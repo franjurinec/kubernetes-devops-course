@@ -36,4 +36,4 @@ Reason: Keep existing configuration, avoid changing secrets.
 ![image](https://user-images.githubusercontent.com/15126801/180514666-72bf03d8-5ee1-43e1-a994-3ddee11bad11.png)
 
 ## Exercise 4.03 - Prometheus Query
-`count(kube_pod_info{namespace="prometheus", created_by_kind="StatefulSet"})`
+`scalar(count(kube_pod_info{namespace="prometheus", created_by_kind="StatefulSet"}))`
