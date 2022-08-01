@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: project
-          image: thefenix/dok-project-backend:1.9.1
+          image: thefenix/dok-project-backend:2.0.6
           resources:
             limits:
               cpu: "100m"
@@ -40,3 +40,5 @@ spec:
               value: "project-db-svc"
             - name: PGPORT
               value: "5432"
+            - name: NATS_URL
+              value: nats://my-nats.default:4222

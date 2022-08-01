@@ -1,9 +1,14 @@
 require('dotenv').config()
 const express = require('express')
+const NATS = require('nats')
+const natsSC = NATS.StringCodec()
 
 const db = process.env.NO_DB ? {query: () => console.log('DB Query Triggered')} : require('./db')
 
 const homepageClientURL = process.env.FRONTEND_URL ?? '/'
+
+const connPromise = NATS.connect({servers: process.env.NATS_URL ?? 'nats://nats:4222'})
+
 
 //  ====================
 // ==  EXPRESS CONFIG  ==
@@ -66,13 +71,14 @@ app.post('/todos', async (req, res) => {
         res.json({error: errorMsg})
         return
     }
-
+    (await connPromise).publish('todo-data', natsSC.encode(`ADDED TODO: ${req.body.todoText}`))
     console.log(`Creating new todo: ${req.body.todoText}`)
     await insertTodo(req.body.todoText)
     res.redirect(homepageClientURL)
 })
 
 app.put('/todos/:todoId', async (req, res) => {
+    (await connPromise).publish('todo-data', natsSC.encode(`REMOVED TODO [${req.params.todoId}]`))
     console.log(`Deleting todo #${req.params.todoId}`)
     await deleteTodo(req.params.todoId)
     res.redirect(homepageClientURL)
