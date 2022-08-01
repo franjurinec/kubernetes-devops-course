@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: project
-          image: thefenix/dok-project-backend:1.4
+          image: thefenix/dok-project-backend:1.9
           resources:
             limits:
               cpu: "100m"

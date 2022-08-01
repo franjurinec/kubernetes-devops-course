@@ -72,7 +72,7 @@ app.post('/todos', async (req, res) => {
     res.redirect(homepageClientURL)
 })
 
-app.delete('/todos', async (req, res) => {
+app.put('/todos', async (req, res) => {
     console.log(`Deleting todo #${req.body.todoId}`)
     await deleteTodo(req.body.todoId)
     res.redirect(homepageClientURL)

@@ -8,5 +8,19 @@ html(lang="en")
       input(type="text", name="todoText", aria-label="TODO Text", maxlength="140")
       input(type="submit")
     
+    mixin todoElement(todoId, todoText)
+      div(style="display:flex;")
+        span= todoText
+        button(onclick=`deleteTodo(${todoId})`) Done
+
     each todo in todos
-      div= todo.value
+      +todoElement(todo.id, todo.value)
+
+    script.
+      function deleteTodo(todoId) {
+        fetch('!{todosClientURL}', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ todoId })
+        }).then(() => document.location.reload())
+      }

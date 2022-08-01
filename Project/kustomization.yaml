@@ -11,3 +11,4 @@ resources:
   - backend/manifests/deployment.yaml
   - backend/manifests/service.yaml
   - backend/manifests/ingress.yaml
+  - cronjob/manifests/cronjob.yaml
