@@ -19,7 +19,7 @@ spec:
           claimName: project-claim
       containers:
         - name: project
-          image: thefenix/dok-project:1.9.5
+          image: thefenix/dok-project:1.9.6
           resources:
             limits:
               cpu: "100m"

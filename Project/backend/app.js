@@ -72,9 +72,9 @@ app.post('/todos', async (req, res) => {
     res.redirect(homepageClientURL)
 })
 
-app.put('/todos', async (req, res) => {
-    console.log(`Deleting todo #${req.body.todoId}`)
-    await deleteTodo(req.body.todoId)
+app.put('/todos/:todoId', async (req, res) => {
+    console.log(`Deleting todo #${req.params.todoId}`)
+    await deleteTodo(req.params.todoId)
     res.redirect(homepageClientURL)
 })
 

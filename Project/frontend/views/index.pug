@@ -18,9 +18,6 @@ html(lang="en")
 
     script.
       function deleteTodo(todoId) {
-        fetch('!{todosClientURL}', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ todoId })
-        }).then(() => document.location.reload())
+        fetch(`!{todosClientURL}/${todoId}`, {method: 'PUT'})
+          .then(() => document.location.reload())
       }
