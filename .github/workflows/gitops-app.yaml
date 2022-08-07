@@ -64,7 +64,7 @@ jobs:
 
     # Update yamls
     - name: Update yamls
-      working-directory: 4-gitops/manifests
+      working-directory: Project
       run: |-
         kustomize edit set image FRONTEND_IMAGE=thefenix/dok-project:${{ github.sha }}
         kustomize edit set image BACKEND_IMAGE=thefenix/dok-project-backend:${{ github.sha }}
