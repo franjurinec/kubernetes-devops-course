@@ -13,9 +13,9 @@ resources:
   - backend/manifests/deployment.yaml
   - backend/manifests/service.yaml
   - backend/manifests/ingress.yaml
-  - cronjob/manifests/cronjob.yaml
-  - broadcaster/manifests/deployment.yaml
-  - broadcaster/manifests/secret.enc.yaml
+  # - cronjob/manifests/cronjob.yaml
+  # - broadcaster/manifests/deployment.yaml
+  # - broadcaster/manifests/secret.enc.yaml
 images:
 - name: FRONTEND_IMAGE
   newName: thefenix/dok-project
