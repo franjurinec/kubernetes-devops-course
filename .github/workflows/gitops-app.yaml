@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - 'Project/**'
-      - '.github/workflows/gitops-app.yml'
+      - '.github/workflows/gitops-app.yaml'
 
 jobs:
   build:
