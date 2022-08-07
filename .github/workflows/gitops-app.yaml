@@ -1,11 +1,11 @@
-name: Release 4-gitops-app
+name: Release project-gitops-app
 
 on:
   push:
     branches:
       - master
     paths:
-      - '4-gitops/app/**'
+      - 'Project/**'
       - '.github/workflows/gitops-app.yml'
 
 jobs:
