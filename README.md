@@ -37,3 +37,6 @@ Reason: Keep existing configuration, avoid changing secrets.
 
 ## Exercise 4.03 - Prometheus Query
 `scalar(count(kube_pod_info{namespace="prometheus", created_by_kind="StatefulSet"}))`
+
+## Exercise 4.07/4.08 - Flux
+Flux configuration in separate repo: https://github.com/franjurinec/kubernetes-flux-gitops/
