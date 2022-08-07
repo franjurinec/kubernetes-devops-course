@@ -1,5 +1,6 @@
 *.exe
 *.txt
+*.agekey
 secret.yaml
 .devcontainer/
 node_modules/

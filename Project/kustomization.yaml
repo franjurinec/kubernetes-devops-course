@@ -6,7 +6,7 @@ resources:
   - frontend/manifests/persistentvolumeclaim.yaml
   - frontend/manifests/deployment.yaml
   - frontend/manifests/service.yaml
-  - backend/manifests/secret.yaml
+  - backend/manifests/secret.enc.yaml
   - backend/manifests/persistentvolumeclaim.yaml
   - backend/manifests/db-statefulset.yaml
   - backend/manifests/db-service.yaml
@@ -15,4 +15,17 @@ resources:
   - backend/manifests/ingress.yaml
   - cronjob/manifests/cronjob.yaml
   - broadcaster/manifests/deployment.yaml
-  - broadcaster/manifests/secret.yaml
+  - broadcaster/manifests/secret.enc.yaml
+images:
+- name: FRONTEND_IMAGE
+  newName: thefenix/dok-project
+  newTag: 1.9.6
+- name: BACKEND_IMAGE
+  newName: thefenix/dok-project-backend
+  newTag: 2.0.6
+- name: CRONJOB_IMAGE
+  newName: thefenix/dok-project-dailytask
+  newTag: 0.1.3
+- name: BROADCASTER_IMAGE
+  newName: thefenix/dok-project-broadcaster
+  newTag: 1.0.3

@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
           - name: daily-task
-            image: thefenix/dok-project-dailytask:0.1.3
+            image: CRONJOB_IMAGE
             resources:
               limits:
                 cpu: "100m"

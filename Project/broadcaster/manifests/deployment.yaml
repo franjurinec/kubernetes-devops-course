@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: broadcaster
-          image: thefenix/dok-project-broadcaster:1.0.3
+          image: BROADCASTER_IMAGE
           env:
             - name: NATS_URL
               value: nats://my-nats.default:4222
