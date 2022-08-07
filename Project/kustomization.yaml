@@ -2,30 +2,30 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: project
 resources:
-  - ./namespace.yaml
-  - frontend/manifests/persistentvolumeclaim.yaml
-  - frontend/manifests/deployment.yaml
-  - frontend/manifests/service.yaml
-  - backend/manifests/secret.enc.yaml
-  - backend/manifests/persistentvolumeclaim.yaml
-  - backend/manifests/db-statefulset.yaml
-  - backend/manifests/db-service.yaml
-  - backend/manifests/deployment.yaml
-  - backend/manifests/service.yaml
-  - backend/manifests/ingress.yaml
-  - cronjob/manifests/cronjob.yaml
-  - broadcaster/manifests/deployment.yaml
-  - broadcaster/manifests/secret.enc.yaml
+- ./namespace.yaml
+- frontend/manifests/persistentvolumeclaim.yaml
+- frontend/manifests/deployment.yaml
+- frontend/manifests/service.yaml
+- backend/manifests/secret.enc.yaml
+- backend/manifests/persistentvolumeclaim.yaml
+- backend/manifests/db-statefulset.yaml
+- backend/manifests/db-service.yaml
+- backend/manifests/deployment.yaml
+- backend/manifests/service.yaml
+- backend/manifests/ingress.yaml
+- cronjob/manifests/cronjob.yaml
+- broadcaster/manifests/deployment.yaml
+- broadcaster/manifests/secret.enc.yaml
 images:
 - name: BACKEND_IMAGE
   newName: thefenix/dok-project-backend
-  newTag: 8eca65872df371ce5813e487bd240fccb53ce15a
+  newTag: 709f065c29c10cd41e889d2a1d65653134872c3c
 - name: BROADCASTER_IMAGE
   newName: thefenix/dok-project-broadcaster
-  newTag: 8eca65872df371ce5813e487bd240fccb53ce15a
+  newTag: 709f065c29c10cd41e889d2a1d65653134872c3c
 - name: CRONJOB_IMAGE
   newName: thefenix/dok-project-dailytask
-  newTag: 8eca65872df371ce5813e487bd240fccb53ce15a
+  newTag: 709f065c29c10cd41e889d2a1d65653134872c3c
 - name: FRONTEND_IMAGE
   newName: thefenix/dok-project
-  newTag: 8eca65872df371ce5813e487bd240fccb53ce15a
+  newTag: 709f065c29c10cd41e889d2a1d65653134872c3c
