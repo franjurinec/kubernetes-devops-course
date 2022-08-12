@@ -1,0 +1,17 @@
+{
+  "name": "dok-dummysite",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.17.0",
+    "dotenv": "^16.0.1",
+    "json-stream": "^1.0.0",
+    "request": "^2.88.2"
+  }
+}

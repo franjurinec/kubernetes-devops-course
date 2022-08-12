@@ -1,0 +1,7 @@
+apiVersion: stable.dwk/v1
+kind: DummySite
+metadata:
+  name: dummy-demo
+spec:
+  website_url: https://example.com/
+  image: thefenix/dok-dummysite:1.0
