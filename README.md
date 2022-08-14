@@ -40,3 +40,20 @@ Reason: Keep existing configuration, avoid changing secrets.
 
 ## Exercise 4.07/4.08 - Flux
 Flux configuration in separate repo: https://github.com/franjurinec/kubernetes-flux-gitops/
+
+## Exercise 5.04 - PaaS Platform Comparison (Anthos GKE vs. Rancher)
+**Anthos GKE**
+- Paid service
+- Closed-source Google product
+- More refined UX
+- More consistent toolchain
+- Tight integration with Google's GKE (+ support for other cloud providers or on-prem)
+- Better customer support
+
+**Rancher**
+- Open-source & free to use on-prem
+- Less coupled with any cloud provider ecosystem
+- Less refined UX
+- Still a powerful tool that's more approachable for smaller teams with less funding
+
+Conclusion: Anthos is a better service but it comes at a higher cost, while Rancher offers a strong free alternative that may require more technical knowledge and effort to use.
