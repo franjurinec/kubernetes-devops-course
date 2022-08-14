@@ -57,3 +57,30 @@ Flux configuration in separate repo: https://github.com/franjurinec/kubernetes-f
 - Still a powerful tool that's more approachable for smaller teams with less funding
 
 Conclusion: Anthos is a better service but it comes at a higher cost, while Rancher offers a strong free alternative that may require more technical knowledge and effort to use.
+
+## Exercise 5.06 - CNCF Landscape
+**Used within course:**
+- Kubernetes
+- k3d/k3s distribution
+- traefik proxy - used by k3d
+- containerd runtime - used by k3d
+- PostgreSQL database
+- helm for managing dependencies // Part 2
+- prometheus for monitoring // Part 2
+- grafana for monitoring // Part 2
+- prometheus loki for logging // Part 2
+- GKE for Hosted Deployment // Part 3
+- Google Container Registry for image hosting // Part 3
+- Google Cloud DataFlow for logging // Part 3
+- GitHub Actions for CI/CD // Part 3 & 4
+- NATS for messaging // Part 4
+- flux for CI/CD // Part 4
+- linkerd as Service Mesh // Part 5
+- flagger for canary release (used via linkerd) // Part 5
+- knative for serverless // Part 5
+- contour for serverless proxy // Part 5
+
+**Used outside of course:**
+- RabbitMQ - messaging for a .NET Core app
+- MongoDB - used as database in other projects
+- MySQL - used as database in other projects
