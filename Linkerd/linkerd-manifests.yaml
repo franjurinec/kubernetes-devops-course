@@ -4,15 +4,79 @@ items:
   kind: Deployment
   metadata:
     annotations:
-      deployment.kubernetes.io/revision: "1"
-    generation: 1
-    labels:
-      kustomize.toolkit.fluxcd.io/name: project-gitops-app
-      kustomize.toolkit.fluxcd.io/namespace: flux-system
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"1"},"generation":1,"name":"project-broadcaster","namespace":"project","resourceVersion":"2152","uid":"e248f5f5-59d3-4a8d-890f-accdee3fda0f"},"spec":{"progressDeadlineSeconds":600,"replicas":10,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"broadcaster"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"linkerd.io/inject":"enabled"},"labels":{"app":"broadcaster"}},"spec":{"containers":[{"env":[{"name":"NATS_URL","value":"nats://my-nats.default:4222"},{"name":"BROADCASTER_KEY","valueFrom":{"secretKeyRef":{"key":"BROADCASTER_KEY","name":"project-broadcaster-key"}}}],"image":"thefenix/dok-project-broadcaster:709f065c29c10cd41e889d2a1d65653134872c3c","imagePullPolicy":"IfNotPresent","name":"broadcaster","terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"conditions":[{"message":"Deployment does not have minimum availability.","reason":"MinimumReplicasUnavailable","status":"False","type":"Available"},{"message":"ReplicaSet \"project-broadcaster-c4976f655\" is progressing.","reason":"ReplicaSetUpdated","status":"True","type":"Progressing"}],"observedGeneration":1,"replicas":10,"unavailableReplicas":10,"updatedReplicas":10}}
+    generation: 2
+    name: project-broadcaster
+    namespace: project
+    resourceVersion: "4440"
+    uid: e248f5f5-59d3-4a8d-890f-accdee3fda0f
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 10
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: broadcaster
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          linkerd.io/inject: enabled
+        labels:
+          app: broadcaster
+      spec:
+        containers:
+        - env:
+          - name: NATS_URL
+            value: nats://my-nats.default:4222
+          - name: BROADCASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                key: BROADCASTER_KEY
+                name: project-broadcaster-key
+          image: thefenix/dok-project-broadcaster:709f065c29c10cd41e889d2a1d65653134872c3c
+          imagePullPolicy: IfNotPresent
+          name: broadcaster
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 10
+    conditions:
+    - message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - message: ReplicaSet "project-broadcaster-5b95b57568" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 2
+    readyReplicas: 10
+    replicas: 10
+    updatedReplicas: 10
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"2"},"generation":2,"name":"project-dep","namespace":"project","resourceVersion":"2095","uid":"e3594f0d-0b1c-48bd-bd00-db8abab281c2"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"project"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"linkerd.io/inject":"enabled"},"labels":{"app":"project"}},"spec":{"containers":[{"image":"thefenix/dok-project:709f065c29c10cd41e889d2a1d65653134872c3c","imagePullPolicy":"IfNotPresent","name":"project","readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/ready","port":3000,"scheme":"HTTP"},"initialDelaySeconds":15,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"100m","memory":"512Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/usr/src/app/files","name":"project-volume","subPath":"frontend"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"project-volume","persistentVolumeClaim":{"claimName":"project-claim"}}]}}},"status":{"conditions":[{"message":"Deployment does not have minimum availability.","reason":"MinimumReplicasUnavailable","status":"False","type":"Available"},{"message":"ReplicaSet \"project-dep-7d556d55fd\" is progressing.","reason":"ReplicaSetUpdated","status":"True","type":"Progressing"}],"observedGeneration":2,"replicas":2,"unavailableReplicas":2,"updatedReplicas":1}}
+    generation: 3
     name: project-dep
     namespace: project
-    resourceVersion: "8299"
-    uid: 7dda4dfd-3291-45c4-9c89-b5c45ff3d978
+    resourceVersion: "4452"
+    uid: e3594f0d-0b1c-48bd-bd00-db8abab281c2
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -66,32 +130,32 @@ items:
           persistentVolumeClaim:
             claimName: project-claim
   status:
+    availableReplicas: 1
     conditions:
-    - message: Deployment does not have minimum availability.
-      reason: MinimumReplicasUnavailable
-      status: "False"
-      type: Available
-    - message: ReplicaSet "project-dep-5f55487b59" is progressing.
-      reason: ReplicaSetUpdated
+    - message: ReplicaSet "project-dep-7d556d55fd" has successfully progressed.
+      reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-    observedGeneration: 1
+    - message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 3
+    readyReplicas: 1
     replicas: 1
-    unavailableReplicas: 1
     updatedReplicas: 1
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     annotations:
-      deployment.kubernetes.io/revision: "1"
-    generation: 1
-    labels:
-      kustomize.toolkit.fluxcd.io/name: project-gitops-app
-      kustomize.toolkit.fluxcd.io/namespace: flux-system
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"2"},"generation":2,"name":"project-backend-dep","namespace":"project","resourceVersion":"2092","uid":"05fd1e9f-8c46-4165-be2b-158d59c9081a"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"project-backend"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"linkerd.io/inject":"enabled"},"labels":{"app":"project-backend"}},"spec":{"containers":[{"env":[{"name":"PGPASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"project-db-pass"}}},{"name":"PGUSER","value":"postgres"},{"name":"PGDATABASE","value":"postgres"},{"name":"PGHOST","value":"project-db-svc"},{"name":"PGPORT","value":"5432"},{"name":"NATS_URL","value":"nats://my-nats.default:4222"}],"image":"thefenix/dok-project-backend:709f065c29c10cd41e889d2a1d65653134872c3c","imagePullPolicy":"IfNotPresent","name":"project","readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/databaseready","port":3000,"scheme":"HTTP"},"initialDelaySeconds":15,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"100m","memory":"512Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"conditions":[{"message":"Deployment does not have minimum availability.","reason":"MinimumReplicasUnavailable","status":"False","type":"Available"},{"message":"ReplicaSet \"project-backend-dep-8496477689\" is progressing.","reason":"ReplicaSetUpdated","status":"True","type":"Progressing"}],"observedGeneration":2,"replicas":2,"unavailableReplicas":2,"updatedReplicas":1}}
+    generation: 3
     name: project-backend-dep
     namespace: project
-    resourceVersion: "8300"
-    uid: f4a63880-66ca-4614-8791-da620f0e19ab
+    resourceVersion: "4475"
+    uid: 05fd1e9f-8c46-4165-be2b-158d59c9081a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -153,86 +217,20 @@ items:
         securityContext: {}
         terminationGracePeriodSeconds: 30
   status:
+    availableReplicas: 1
     conditions:
-    - message: Deployment does not have minimum availability.
-      reason: MinimumReplicasUnavailable
-      status: "False"
+    - message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
       type: Available
-    - message: ReplicaSet "project-backend-dep-5d8c54b49d" is progressing.
-      reason: ReplicaSetUpdated
+    - message: ReplicaSet "project-backend-dep-8496477689" has successfully progressed.
+      reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-    observedGeneration: 1
+    observedGeneration: 3
+    readyReplicas: 1
     replicas: 1
-    unavailableReplicas: 1
     updatedReplicas: 1
-- apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    annotations:
-      deployment.kubernetes.io/revision: "1"
-    generation: 1
-    labels:
-      kustomize.toolkit.fluxcd.io/name: project-gitops-app
-      kustomize.toolkit.fluxcd.io/namespace: flux-system
-    name: project-broadcaster
-    namespace: project
-    resourceVersion: "8453"
-    uid: 8005b4eb-4129-4f5b-943f-33a97d2fe86a
-  spec:
-    progressDeadlineSeconds: 600
-    replicas: 10
-    revisionHistoryLimit: 10
-    selector:
-      matchLabels:
-        app: broadcaster
-    strategy:
-      rollingUpdate:
-        maxSurge: 25%
-        maxUnavailable: 25%
-      type: RollingUpdate
-    template:
-      metadata:
-        annotations:
-          linkerd.io/inject: enabled
-        labels:
-          app: broadcaster
-      spec:
-        containers:
-        - env:
-          - name: NATS_URL
-            value: nats://my-nats.default:4222
-          - name: BROADCASTER_KEY
-            valueFrom:
-              secretKeyRef:
-                key: BROADCASTER_KEY
-                name: project-broadcaster-key
-          image: thefenix/dok-project-broadcaster:709f065c29c10cd41e889d2a1d65653134872c3c
-          imagePullPolicy: IfNotPresent
-          name: broadcaster
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-        dnsPolicy: ClusterFirst
-        restartPolicy: Always
-        schedulerName: default-scheduler
-        securityContext: {}
-        terminationGracePeriodSeconds: 30
-  status:
-    availableReplicas: 6
-    conditions:
-    - message: Deployment does not have minimum availability.
-      reason: MinimumReplicasUnavailable
-      status: "False"
-      type: Available
-    - message: ReplicaSet "project-broadcaster-c4976f655" is progressing.
-      reason: ReplicaSetUpdated
-      status: "True"
-      type: Progressing
-    observedGeneration: 1
-    readyReplicas: 6
-    replicas: 10
-    unavailableReplicas: 4
-    updatedReplicas: 10
 kind: List
 metadata: {}
 ---
