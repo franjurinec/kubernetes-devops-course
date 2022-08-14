@@ -1,0 +1,30 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ping-pong
+  namespace: applications
+spec:
+  template:
+    metadata:
+      name: ping-pong-serverless
+    spec:
+      containers:
+        - name: ping-pong
+          image: thefenix/dok-ping-pong:0.6.2
+          envFrom:
+            - secretRef:
+                name: postgres-pass
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-pass
+                  key: POSTGRES_PASSWORD
+            - name: PGUSER
+              value: "postgres"
+            - name: PGDATABASE
+              value: "postgres"
+            - name: PGHOST
+              value: "postgres-svc"
+            - name: PGPORT
+              value: "5432"
